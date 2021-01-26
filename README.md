@@ -11,6 +11,10 @@ Commons networking related utils.
 ## Usage
 Run maven install on commons-networking parent.
 
+## Contributions
+ * [Contributing](CONTRIBUTING.md) - how to contribute.
+ * [Contributors](docs/CONTRIBUTORS.md) - Folks who have contributed, thanks very much!
+
 ## Licensing
 
 ```
