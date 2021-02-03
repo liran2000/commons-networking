@@ -1,4 +1,4 @@
-package com.cisco.commons.networking;
+package com.cisco.gnmi.utils;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -17,7 +17,7 @@ import gnmi.Gnmi.PathElem;
  * <pre>
  * GNMI Path parser.
  * Following:
- * https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-path-strings.md#representing-gnmi-paths-as-strings
+ * <a href="https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-path-strings.md#representing-gnmi-paths-as-strings">Representing GNMI paths as strings</a> <br/>
  * 
  * This is intended for configuration flow, not data processing flow. As such, simplicity is preferred:
  * "String encoding MUST NOT be used within the protocol, but provides means to simplify human interaction with 

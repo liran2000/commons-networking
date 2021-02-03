@@ -1,4 +1,4 @@
-package com.cisco.commons.networking;
+package com.cisco.gnmi.utils;
 
 import static org.junit.Assert.assertEquals;
 

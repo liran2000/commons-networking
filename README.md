@@ -5,6 +5,7 @@ Commons networking related utils.
 **Note**: This is not an official Cisco product.
 
 ## Features
+* SSE (Server-sent events) client.
 * GNMI Utils.  
   Parsing string representation of GNMI paths.
 
