@@ -40,7 +40,7 @@ import gnmi.Gnmi.PathElem;
  */
 public class GNMIUtils {
 	
-	private static char TOKEN_SEPARATOR = '/';
+	private final static char TOKEN_SEPARATOR = '/';
 	
 	private GNMIUtils() {
 		

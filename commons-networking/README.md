@@ -5,9 +5,34 @@ Commons networking related utils.
 **Note**: This is not an official Cisco product.
 
 ## Features
-* SSE (Server-sent events) client.
+* [SSE (Server-sent Events) client](#sse-client)  
 
-## Usage
+### SSE client
+Server-Sent Events (SSE) is a [server push](https://en.wikipedia.org/wiki/Push_technology) technology 
+enabling a client to receive automatic updates from a server via HTTP connection.  
+The Server-Sent Events EventSource API is standardized as part of 
+[HTML5](https://www.w3.org/TR/eventsource) by the W3C.  
+It is used for unidirectional server to client events, as opposed to the full-duplex bidirectional WebSockets.
+
+#### Example usage
+
+[SSEClientTest](./commons-networking/src/test/java/com/cisco/commons/networking/SSEClientTest.java) 
+
+```
+SSEClient sseClient = SSEClient.builder().url(url).eventHandler(eventHandler)
+	.build();
+sseClient.start();
+```
+
+## Quality Assurance
+
+### Code analysis
+Code analysis done with Sonar.
+
+### Testing
+Flows are covered by unit tests.
+
+## Build
 Run maven install on commons-networking parent.
 
 ## Contributions

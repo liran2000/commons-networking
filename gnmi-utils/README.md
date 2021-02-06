@@ -1,14 +1,35 @@
-# commons-networking
+# gnmi-utils
 
-Commons networking related utils.
+GNMI utils.
 
 **Note**: This is not an official Cisco product.
 
-## Features
-* GNMI Utils.  
-  Parsing string representation of GNMI paths.
+## Features 
+* [GNMI Utils](#gnmi-utils)  
 
-## Usage
+### GNMI Utils
+Parsing string representation of GNMI paths.  
+Following:  
+[Representing GNMI paths as strings](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-path-strings.md#representing-gnmi-paths-as-strings)
+
+#### Example usage
+
+[GNMIUtilsTest](./gnmi-utils/src/test/java/com/cisco/gnmi/utils/GNMIUtilsTest.java) 
+
+```
+String gnmiPathStr = "openconfig-interfaces/interfaces/interface[name=Ethernet/1/2/3]/state";
+Path parsedPath = GNMIUtils.parseGNMIPathStr(gnmiPathStr);
+```
+
+## Quality Assurance
+
+### Code analysis
+Code analysis done with Sonar.
+
+### Testing
+Flows are covered by unit tests.
+
+## Build
 Run maven install on commons-networking parent.
 
 ## Contributions

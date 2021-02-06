@@ -55,7 +55,7 @@ public class SSEClientTest {
 			log.info("Listening to port: {}", httpServer.getAddress().getPort());
 			String url = "http://localhost:" + httpServer.getAddress().getPort() + api;
 			EventHandler eventHandler = eventText -> { events.add(eventText); };
-			SSEClient sseClient = SSEClient.builder().url(url).eventHandler(eventHandler )
+			SSEClient sseClient = SSEClient.builder().url(url).eventHandler(eventHandler)
 				.build();
 			log.info("Starting SSE Client");
 			sseClient.start();

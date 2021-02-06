@@ -63,13 +63,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SSEClient {
 
-    private static final long DEFAULT_RECONNECT_SAMPLING_TIME_MILLIS = 60 * 1000;
+    private static final long DEFAULT_RECONNECT_SAMPLING_TIME_MILLIS = 60L * 1000L;
     private static final long DEFAULT_CONNECTIVITY_REFRESH_DELAY = 24;
     private static final TimeUnit DEFAULT_CONNECTIVITY_REFRESH_DELAY_TIME_UNIT = TimeUnit.HOURS;
     
 	private String url;
 	private Map<String, String> headerParams;
-	public EventHandler eventHandler;
+	private EventHandler eventHandler;
 	private long reconnectSamplingTimeMillis = DEFAULT_RECONNECT_SAMPLING_TIME_MILLIS;
 	private long connectivityRefreshDelay = DEFAULT_CONNECTIVITY_REFRESH_DELAY;
 	private TimeUnit connectivityRefreshDelayTimeUnit = DEFAULT_CONNECTIVITY_REFRESH_DELAY_TIME_UNIT;
@@ -87,7 +87,7 @@ public class SSEClient {
     
     public enum SubscribeStatus {
         SUCCESS, FAILING, RECONNECTING, NOT_STARTED, STOPPED
-    };
+    }
 
     @Builder
     public SSEClient(String url, Map<String, String> headerParams, EventHandler eventHandler,
@@ -129,16 +129,15 @@ public class SSEClient {
 		this.pool = Executors.newSingleThreadExecutor();
 		this.connectivityRefreshPoolScheduler = Executors.newScheduledThreadPool(1);
 		try {
-			this.sslContext = getSSLContext();
+			this.sslContext = buildSSLContext();
 		} catch (Exception e) {
 			throw new IllegalStateException("Failed getting SSL context", e);
 		}
 	}
     
-    private SSLContext getSSLContext() throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException {
+    private SSLContext buildSSLContext() throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException {
         TrustStrategy acceptingTrustStrategy = (cert, authType) -> true;
-        SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
-        return sslContext;
+        return SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
     }
     
     private void getChanges() {
@@ -168,7 +167,7 @@ public class SSEClient {
     private void sleepQuitely(long millis) {
         try {
             Thread.sleep(millis);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             log.error("Error sleeping: " + e.getMessage());
         }
     }
@@ -206,7 +205,7 @@ public class SSEClient {
             log.info("getChangesHelper end");
         } catch (Exception e) {
             String errorMessage = "Got exception: " + e.getMessage() + ", cause: " + e.getCause() + ", class: " + e.getClass();
-            if (e.getCause() != null && e.getCause() instanceof InterruptedException) {
+            if (e.getCause() instanceof InterruptedException) {
                 log.debug(errorMessage);
             } else {
                 log.error(errorMessage, e);
@@ -237,7 +236,7 @@ public class SSEClient {
                 char c = (char) charInt;
                 stringBuilder.append(c);
                 if (c == '\n' && prevChar == '\n') {
-                    String notification = stringBuilder.toString().replaceAll("data:", "");
+                    String notification = stringBuilder.toString().replace("data:", "");
                     handleData(notification);
                     stringBuilder = new StringBuilder();
                 }
@@ -322,7 +321,7 @@ public class SSEClient {
             connectivityRefreshPoolScheduler.shutdownNow();
             status = SubscribeStatus.STOPPED;
             log.info("Stopped SSE Client {}", threadName);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log.error("Error in preDestroy", e);
         }
     }
